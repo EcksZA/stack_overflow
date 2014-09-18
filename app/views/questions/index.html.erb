@@ -1,0 +1,11 @@
+<% content_for(:title, 'StackOverflow') %>
+
+<h1>Index Page</h1>
+
+<% @questions.each do |question| %>
+  <div>
+    <a href="users/<%= question.user.id %>/questions/<%= question.id %>"><%= question.title %></a>
+    <p>asked <%= time_ago_in_words(question.created_at) %> ago by <a href="/users/<%= question.user.id %>"><%= question.user.name %></a></p>
+    <br />
+  </div>
+<% end %>

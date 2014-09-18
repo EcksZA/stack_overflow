@@ -1,0 +1,13 @@
+<% content_for(:title, 'Question') %>
+
+<h1><%= @question.title %></h1>
+
+<p><%= @question.question %></p>
+
+<p>asked <%= time_ago_in_words(@question.created_at) %> ago</p>
+
+<p><a href="users/<%= @question.user.id %>"><%= @question.user.name %></a></p>
+
+<p><%= link_to 'Delete', user_question_path(@user, @question), data: { confirm: 'Are you sure you want to delete this question?',
+                                                              method: 'delete' }
+                                                              %></p>
