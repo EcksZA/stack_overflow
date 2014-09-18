@@ -1,0 +1,9 @@
+<% content_for(:title, 'Profile | StackOverflow') %>
+<h1>Profile</h1>
+
+<div><%= @user.name %></div>
+
+<%= link_to "Delete account", user_path(@user),
+          data: { confirm: "Are you sure you want to delete this account",
+          method: 'delete' }
+          %>
