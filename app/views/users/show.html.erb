@@ -5,7 +5,7 @@
 
 <h3>Questions</h3>
 <% @user.questions.each do |question| %>
-  <h4><a href="users/<%= question.user_id %>/questions/<%= question.id %>"><%= question.title %></a><h4>
+  <h4><%=  link_to question.title, user_question_path(@user, question) %></h4>
 <% end %>
 <br />
 

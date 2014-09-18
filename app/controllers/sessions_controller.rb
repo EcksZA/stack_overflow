@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:notice] = 'Logged in'
-      # Not complete, to be moved to index page
       redirect_to user_path(@user)
     else
       flash.now.alert = 'Login is invalid'
@@ -17,8 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    # this will be changed to the index page
     flash[:notice] = 'User logged out'
-    redirect_to sessions_path
+    redirect_to questions_path
   end
 end

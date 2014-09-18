@@ -6,32 +6,37 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    else
+      @user = User.find(params[:user_id])
+    end
     @question = @user.questions.find(params[:id])
   end
 
   def new
-    @question = Question.new
+    current_user = User.find(params[:user_id])
+    @question = current_user.questions.new
   end
 
   def create
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
     @question = @user.questions.new(question_params)
     if @question.save
       flash[:notice] = 'Question asked'
-      redirect_to user_question_path(:user, @question)
+      redirect_to user_question_path(@user, @question)
     else
       render 'new'
     end
   end
 
   def edit
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
     @question = @user.questions.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
     @question = @user.questions.find(params[:id])
     if @question.update(question_params)
       flash[:notice] = 'Question updated'
@@ -42,7 +47,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
     @question = @user.questions.find(params[:id])
     @question.destroy
     flash[:alert] = 'Question deleted'
