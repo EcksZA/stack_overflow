@@ -1,0 +1,5 @@
+<%= form_for [@question, @answer], remote: true do |f| %>
+  <%= f.label :answer %>
+  <%= f.text_area :answer, size: '20x25' %>
+  <%= f.submit 'Submit Answer' %>
+<% end %>

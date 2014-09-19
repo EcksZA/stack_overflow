@@ -6,25 +6,19 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    if session[:user_id]
-      @user = User.find(session[:user_id])
-    else
-      @user = User.find(params[:user_id])
-    end
-    @question = @user.questions.find(params[:id])
+    @question = Question.find(params[:id])
   end
 
   def new
-    current_user = User.find(params[:user_id])
+    current_user = User.find(session[:user_id])
     @question = current_user.questions.new
   end
 
   def create
-    @user = User.find(session[:user_id])
-    @question = @user.questions.new(question_params)
+    @question = Question.new(question_params)
     if @question.save
       flash[:notice] = 'Question asked'
-      redirect_to user_question_path(@user, @question)
+      redirect_to question_path(@question)
     else
       render 'new'
     end
@@ -40,22 +34,21 @@ class QuestionsController < ApplicationController
     @question = @user.questions.find(params[:id])
     if @question.update(question_params)
       flash[:notice] = 'Question updated'
-      redirect_to user_question_path(@user, @question)
+      redirect_to question_path(@question)
     else
       render 'edit'
     end
   end
 
   def destroy
-    @user = User.find(session[:user_id])
-    @question = @user.questions.find(params[:id])
+    @question = Question.find(params[:id])
     @question.destroy
     flash[:alert] = 'Question deleted'
-    redirect_to user_path(@user.id)
+    redirect_to user_path(@question.user.id)
   end
 
 private
   def question_params
-    params.require(:question).permit(:title, :question, :user_id)
+    params.require(:question).permit(:title, :question, :user_id).merge(user_id: current_user.id )
   end
 end

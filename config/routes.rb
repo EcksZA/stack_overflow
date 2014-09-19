@@ -5,10 +5,10 @@ Rails.application.routes.draw do
 
   root to: 'questions#index'
 
-  resources :users, except: [:index, :edit, :update] do
-    resources :questions, except: [:index]
+  resources :users, except: [:index, :edit, :update]
+  resources :questions, except: [:index] do
+    resources :answers, except: [:index, :show]
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :questions, only: [:index]
 end
 

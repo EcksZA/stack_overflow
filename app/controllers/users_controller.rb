@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authorize, only: :destroy
+
   def show
     @user = User.find(params[:id])
   end
@@ -22,8 +24,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:alert] = 'Account deleted'
-    #Link to change to index page
-    redirect_to new_user_path
+    redirect_to root_path
   end
 
 private
