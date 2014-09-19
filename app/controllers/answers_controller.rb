@@ -13,16 +13,13 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
-    if @answer.save
-      flash[:notice] = 'Answer submitted'
-      respond_to do |format|
-        format.html { redirect_to question_path(@question.id) }
-        format.js
+    respond_to do |format|
+      if @answer.save
+          format.html { redirect_to question_path(@question.id), notice: 'Answer submitted' }
+          format.js
+      else
+        blah
       end
-    else
-      respond_to do |format|
-        format.html { redirect_to question_path(@question.id) }
-        format.js
     end
   end
 

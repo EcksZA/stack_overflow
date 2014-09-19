@@ -9,6 +9,9 @@
 <% end %>
 <br />
 
+<p><%= link_to 'Main Menu', root_path %></p>
+<p><%= link_to 'New Question', new_question_path %></p>
+
 <% if current_user && @user.id == current_user.id %>
   <%= link_to "Delete account", user_path(@user),
             data: { confirm: "Are you sure you want to delete this account",

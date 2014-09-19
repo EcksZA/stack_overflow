@@ -9,14 +9,19 @@
 <p><%= link_to @question.user.name, user_path(@question.user.id) %></p>
 
 <% if current_user %>
-  <p><%= link_to 'Answer', new_question_answer_path(@question.id), id: "answer_link", remote: true %></p>
+  <p><%= link_to 'Answer', new_question_answer_path(@question.id), id: "answer-link", remote: true %></p>
 <% else %>
   <p>Login in to answer </p>
 <% end %>
 
 <div id='answers'>
-  <%= render @answer %>
+  <% @question.answers.each do |answer| %>
+    <p><%= answer.answer %></p>
+  <% end %>
 </div>
+
+
+<%= link_to 'Main_menu', root_path %>
 
 <% if current_user && @question.user.id == current_user.id %>
   <p><%= link_to 'Delete', question_path(@question), data: { confirm: 'Are you sure you want to delete this question?',
