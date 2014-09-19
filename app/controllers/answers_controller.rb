@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new
     respond_to do |format|
-      format.html { redirect_to question_path(@question.id) }
+      format.html { redirect_to question_path(@question) }
       format.js
     end
   end
@@ -15,7 +15,7 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(answer_params)
     respond_to do |format|
       if @answer.save
-          format.html { redirect_to question_path(@question.id), notice: 'Answer submitted' }
+          format.html { redirect_to question_path(@question), notice: 'Answer submitted' }
           format.js
       else
         blah
