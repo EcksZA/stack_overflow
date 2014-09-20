@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :users, except: [:index, :edit, :update]
   resources :questions, except: [:index] do
-    resources :answers, except: [:index, :show]
+    resources :answers, except: [:index, :show] do
+      resources :votes, only: [:create]
+    end
   end
   resources :sessions, only: [:new, :create, :destroy]
 end

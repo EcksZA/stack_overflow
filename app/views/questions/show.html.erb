@@ -15,9 +15,7 @@
 <% end %>
 
 <div id='answers'>
-  <% @question.answers.each do |answer| %>
-    <p><%= answer.answer %></p>
-  <% end %>
+  <%= render @question.answers %>
 </div>
 
 
