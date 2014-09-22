@@ -23,6 +23,13 @@ class AnswersController < ApplicationController
     end
   end
 
+  def update
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.find(answer_params)
+    @answer.update(:favorite_id)
+    respond_to
+  end
+
 private
   def answer_params
     params.require(:answer).permit(:answer, :user_id, :question_id).merge(:user_id => current_user.id)

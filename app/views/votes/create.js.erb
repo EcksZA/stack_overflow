@@ -1,2 +1,1 @@
-;
-
+$('#vote_count_<%= @answer.id %>').replaceWith('<p id="vote_count_<%= @answer.id %>"><%= @answer.votes.count %></p>');

@@ -2,5 +2,10 @@
 <p>Submitted by: <%= answer.user.name %>, <%= time_ago_in_words(answer.created_at) %> ago</p>
 
 <%= link_to "Upvote Answer", question_answer_votes_path(@question, answer), remote: true, data: { method: 'post' }, id: "vote_link" %>
-<p id='vote_count'><%= answer.votes.count %></p>
+<p id='vote_count_<%= answer.id %>'><%= answer.votes.count %></p>
+
+<%#= form_for @question do |f| %>
+  <%#= f.hidden_field :favorite_id, :value => answer.id %>
+  <%#= f.submit 'Favorite' %>
+<%# end %>
 
